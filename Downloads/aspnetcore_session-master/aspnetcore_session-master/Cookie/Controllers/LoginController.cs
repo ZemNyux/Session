@@ -16,7 +16,7 @@ namespace Session.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpContext.Session.SetString("login", login.UserName); // створення сесійної змінної (доречі, саму сесію в асп не треба створювати)
+                HttpContext.Session.SetString("login", login.UserName!); // створення сесійної змінної (доречі, саму сесію в асп не треба створювати)
                 return RedirectToAction("Index", "Home");
             }
             return View(login);
