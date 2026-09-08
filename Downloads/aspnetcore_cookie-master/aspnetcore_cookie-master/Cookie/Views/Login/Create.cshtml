@@ -1,0 +1,56 @@
+﻿@model Cookie.Models.Login
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Авторизація</title>
+    <link rel="stylesheet" href="~/css/auth.css" />
+</head>
+<body class="auth-body">
+    <div class="container">
+        <div class="login-box">
+            @using (Html.BeginForm("Create", "Login", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @if (Context.Request.Cookies["login"] == null)
+                {
+                    <h2 class="title">Вхід в систему</h2>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, "Логін", new { @class = "label" })
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "input-text", placeholder = "Введіть логін" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "error" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, "Пароль", new { @class = "label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "input-text", placeholder = "Введіть пароль" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
+                    </div>
+
+                    <button type="submit" class="btn btn-login">Увійти</button>
+                }
+                else
+                {
+                    <div class="already-logged">
+                        <h2>Ви вже увійшли!</h2>
+                        <p>Вводити логін та пароль вже не потрібно.</p>
+                        <p>Користувач: <strong>@Context.Request.Cookies["login"]</strong></p>
+
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-home">
+                            Перейти на головну сторінку
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</body>
+</html>
