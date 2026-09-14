@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Головна</title>
+    <link rel="stylesheet" href="~/css/auth.css" />
+</head>
+<body class="auth-body">
+
+    <div class="container">
+        <div class="welcome-box">
+            <h2>Вітаємо, <span class="username">@Context.Session.GetString("login")</span>!</h2>
+            <p>Ви успішно увійшли в систему.</p>
+
+            <div class="actions">
+                @using (Html.BeginForm("Logout", "Home", FormMethod.Get, new { @class = "inline" }))
+                {
+                    <button type="submit" class="btn btn-logout">Вийти</button>
+                }
+                <a href="@Url.Action("Create", "Login")" class="btn btn-link">Перейти до авторизації</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
